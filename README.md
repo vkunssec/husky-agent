@@ -148,11 +148,3 @@ tem JSDoc adequado e segue as boas práticas. Pronto para commit!
 [main abc1234] Adiciona função de validação
  1 file changed, 15 insertions(+)
 ```
-
-## 🤝 Contribuindo
-
-Sinta-se à vontade para abrir issues ou pull requests com melhorias!
-
-## 📄 Licença
-
-ISC
