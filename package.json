@@ -1,13 +1,13 @@
 {
   "name": "husky-agent",
   "version": "1.0.0",
-  "description": "",
+  "description": "Revisão de código automatizada com Cursor Agent no pre-commit",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky"
   },
-  "keywords": [],
+  "keywords": ["code-review", "cursor-agent", "husky"],
   "author": "",
   "license": "ISC",
   "dependencies": {
