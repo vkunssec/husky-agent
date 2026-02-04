@@ -1,10 +1,2 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-# Carrega variáveis de ambiente do arquivo .env se existir
-if [ -f .env ]; then
-  export $(cat .env | grep -v '^#' | xargs)
-fi
-
-# Executa o script de revisão de código
-node .husky/review-code.js
+# Executa o script de revisão de código usando Cursor Agent
+bash .husky/review-code.sh

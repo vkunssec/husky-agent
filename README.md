@@ -1,17 +1,25 @@
-# Husky + Claude AI - Revisão Automática de Código
+# Husky + Cursor Agent - Revisão Automática de Código
 
-Sistema automático de revisão de código que utiliza Claude AI (Anthropic) para analisar mudanças antes de cada commit.
+Sistema automático de revisão de código que utiliza o Cursor Agent CLI (`agent`) para analisar mudanças antes de cada commit.
 
 ## 🚀 Características
 
 - ✅ Revisão automática de código antes de commits
-- 🤖 Análise inteligente usando Claude AI
+- 🤖 Usa o Cursor Agent CLI que você já tem instalado
 - 📝 Feedback detalhado sobre qualidade do código
 - 🔒 Detecta problemas de segurança e bugs
 - 📋 Verifica boas práticas e padrões de código
-- ⚡ Não-interativo e totalmente automatizado
+- ⚡ Totalmente automatizado
+- 🆓 Sem necessidade de API keys externas
 
 ## 📦 Instalação
+
+### Pré-requisitos
+
+- Cursor Agent CLI instalado e funcionando (comando `agent` disponível no terminal)
+- Node.js instalado
+
+### Passos
 
 1. Clone o repositório e instale as dependências:
 
@@ -19,21 +27,9 @@ Sistema automático de revisão de código que utiliza Claude AI (Anthropic) par
 npm install
 ```
 
-2. Configure sua chave da API Anthropic:
+2. Pronto! O sistema já está configurado e funcionando.
 
-```bash
-# Copie o arquivo de exemplo
-cp .env.example .env
-
-# Edite o arquivo .env e adicione sua chave
-# ANTHROPIC_API_KEY=sua_chave_aqui
-```
-
-3. Obtenha sua chave da API:
-   - Acesse: https://console.anthropic.com/
-   - Crie uma conta ou faça login
-   - Vá para API Keys e gere uma nova chave
-   - Cole a chave no arquivo `.env`
+O hook vai usar o comando `agent` que você já tem configurado no seu sistema.
 
 ## 🎯 Como Usar
 
@@ -73,39 +69,34 @@ O revisor de código verifica:
 .
 ├── .husky/
 │   ├── pre-commit          # Hook do Git
-│   └── review-code.js      # Script de revisão
-├── .env.example            # Template de configuração
-├── .gitignore             # Ignora node_modules e .env
+│   └── review-code.sh      # Script de revisão usando Cursor Agent
+├── .gitignore             # Ignora node_modules
 ├── package.json           # Dependências do projeto
 └── README.md             # Este arquivo
 ```
 
 ## 🛠️ Configuração Avançada
 
-### Modo Sem API Key
-
-Se não houver `ANTHROPIC_API_KEY` configurada, o hook permitirá commits sem revisão, mas mostrará um aviso.
-
 ### Personalizar Critérios
 
-Edite `.husky/review-code.js` e modifique a seção `CRITÉRIOS DE APROVAÇÃO` no prompt para ajustar o que a IA deve verificar.
+Edite `.husky/review-code.sh` e modifique a seção `CRITÉRIOS DE APROVAÇÃO` no prompt para ajustar o que a IA deve verificar.
 
 ### Suportar Mais Extensões
 
-No arquivo `.husky/review-code.js`, na função `getStagedFiles()`, adicione extensões ao regex:
+No arquivo `.husky/review-code.sh`, adicione extensões ao regex na linha que define `STAGED_FILES`:
 
-```javascript
-grep -E '\\.(js|jsx|ts|tsx|py|go|java|cs|php|rb|rs|html|css|scss|md|sua_extensao)$'
+```bash
+grep -E '\.(js|jsx|ts|tsx|py|go|java|cs|php|rb|rs|html|css|scss|md|sua_extensao)$'
 ```
 
 ## 🐛 Troubleshooting
 
-### "ANTHROPIC_API_KEY não configurada"
+### Comando `agent` não encontrado
 
-Certifique-se de ter criado o arquivo `.env` e adicionado sua chave:
+Certifique-se de ter o Cursor Agent CLI instalado e disponível no PATH. Teste no terminal:
 
 ```bash
-ANTHROPIC_API_KEY=sk-ant-...
+agent --version
 ```
 
 ### Hook não está executando
@@ -118,11 +109,19 @@ npm run prepare
 
 ### Erro de permissão
 
-Torne o script executável:
+Torne os scripts executáveis:
 
 ```bash
-chmod +x .husky/review-code.js
+chmod +x .husky/review-code.sh
 chmod +x .husky/pre-commit
+```
+
+### Cursor Agent não responde
+
+Se o Cursor Agent travar ou demorar muito, você pode interromper com Ctrl+C e usar `--no-verify` para pular a revisão:
+
+```bash
+git commit --no-verify -m "sua mensagem"
 ```
 
 ## 📝 Exemplo de Uso
@@ -131,14 +130,17 @@ chmod +x .husky/pre-commit
 $ git add index.js
 $ git commit -m "Adiciona função de validação"
 
-🔍 Iniciando revisão automática de código...
+🔍 Iniciando revisão automática de código com Cursor Agent...
 
 📝 Arquivos a serem revisados:
    - index.js
 
-📋 Resultado da Revisão:
+🤖 Consultando Cursor Agent...
 
-✅ Código está bem estruturado! A função de validação está clara,
+📋 Resultado da Revisão:
+APPROVED
+
+O código está bem estruturado! A função de validação está clara,
 tem JSDoc adequado e segue as boas práticas. Pronto para commit!
 
 ✅ Código aprovado! Prosseguindo com o commit.

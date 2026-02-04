@@ -22,3 +22,4 @@ function subtract(a, b) {
 
 console.log(sum(1, 2));
 console.log(subtract(1, 2));
+// teste 
